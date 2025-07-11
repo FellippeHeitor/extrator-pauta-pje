@@ -399,6 +399,31 @@ footer {
     opacity: 0.8;
 }
 
+footer a {
+    color: #43A047;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 4px;
+    padding: 2px 4px;
+}
+
+footer a:hover {
+    color: #4CAF50;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+footer a svg {
+    transition: transform 0.2s ease;
+}
+
+footer a:hover svg {
+    transform: scale(1.1);
+}
+
 /* File and Digits section - lado a lado */
 .file-and-digits-section {
     display: grid;
