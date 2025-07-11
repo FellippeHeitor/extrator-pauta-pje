@@ -75,8 +75,25 @@ class PDFExtractor {
     const timePattern = /(\d{2}:\d{2})/g;
     const processPattern = /(\d{7}-\d{2}\.\d{4}\.8\.13\.\d{4})/g;
 
+    const totalItems = textItems.length;
+
     for (let i = 0; i < textItems.length; i++) {
       const item = textItems[i].trim();
+
+      // Atualiza progresso a cada 100 itens ou no final
+      if (this.onProgress && (i % 100 === 0 || i === totalItems - 1)) {
+        const percentage = Math.round((i / totalItems) * 100);
+        this.onProgress({
+          page: i + 1,
+          total: totalItems,
+          text: `Analisando texto... ${percentage}% (${i + 1}/${totalItems})`
+        });
+        
+        // Pequena pausa para permitir atualização da UI
+        if (i % 500 === 0) {
+          await new Promise(resolve => setTimeout(resolve, 1));
+        }
+      }
 
       if (!item) continue;
 
@@ -154,6 +171,15 @@ class PDFExtractor {
         currentProcess = "";
         processoCriminal = false;
       }
+    }
+
+    // Atualização final do progresso
+    if (this.onProgress) {
+      this.onProgress({
+        page: totalItems,
+        total: totalItems,
+        text: `Análise concluída! Encontrados ${this.extractedData.length} processos.`
+      });
     }
   }
 
