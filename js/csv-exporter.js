@@ -15,7 +15,7 @@ class CSVExporter {
     setData(data, metadata = {}) {
         this.data = data;
         this.metadata = metadata;
-        this.headers = ['Processo', 'Data', 'Hora'];
+        this.headers = ['Processo', 'Tipo', 'Data', 'Hora'];
     }
 
     /**
@@ -34,6 +34,7 @@ class CSVExporter {
         for (const row of this.data) {
             const csvRow = [
                 this.escapeCSV(row.processo),
+                this.escapeCSV(row.tipo),
                 this.escapeCSV(row.data),
                 this.escapeCSV(row.hora)
             ];
@@ -57,6 +58,12 @@ class CSVExporter {
         
         if (this.metadata.selectedDigits && this.metadata.selectedDigits.length > 0) {
             header += `Dígitos selecionados: [${this.metadata.selectedDigits.join(',')}]\n`;
+        }
+
+        if (this.metadata.processType) {
+            const typeText = this.metadata.processType === 'both' ? 'Criminal e Cível' :
+                           this.metadata.processType === 'criminal' ? 'Criminal' : 'Cível';
+            header += `Tipo de processo: ${typeText}\n`;
         }
         
         header += '\n'; // Linha em branco antes dos dados
@@ -161,113 +168,7 @@ class CSVExporter {
         }
     }
 
-    /**
-     * Converte dados para formato de tabela HTML
-     */
-    generateHTMLTable() {
-        if (this.data.length === 0) {
-            return '<p>Nenhum dado para exibir.</p>';
-        }
 
-        let html = '<table class="csv-preview-table">';
-        
-        // Cabeçalho
-        html += '<thead><tr>';
-        for (const header of this.headers) {
-            html += `<th>${this.escapeHTML(header)}</th>`;
-        }
-        html += '</tr></thead>';
-        
-        // Dados
-        html += '<tbody>';
-        for (const row of this.data) {
-            html += '<tr>';
-            html += `<td>${this.escapeHTML(row.processo)}</td>`;
-            html += `<td>${this.escapeHTML(row.data)}</td>`;
-            html += `<td>${this.escapeHTML(row.hora)}</td>`;
-            html += '</tr>';
-        }
-        html += '</tbody>';
-        
-        html += '</table>';
-        
-        return html;
-    }
-
-    /**
-     * Escapa caracteres HTML
-     */
-    escapeHTML(text) {
-        if (text === null || text === undefined) {
-            return '';
-        }
-        
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-
-    /**
-     * Valida os dados antes da exportação
-     */
-    validateData() {
-        const errors = [];
-        
-        if (!Array.isArray(this.data)) {
-            errors.push('Dados devem ser um array');
-            return errors;
-        }
-        
-        if (this.data.length === 0) {
-            errors.push('Nenhum dado para exportar');
-            return errors;
-        }
-        
-        // Valida estrutura de cada item
-        for (let i = 0; i < this.data.length; i++) {
-            const item = this.data[i];
-            
-            if (!item.processo) {
-                errors.push(`Item ${i + 1}: Número do processo é obrigatório`);
-            }
-            
-            if (!item.data) {
-                errors.push(`Item ${i + 1}: Data é obrigatória`);
-            }
-            
-            if (!item.hora) {
-                errors.push(`Item ${i + 1}: Hora é obrigatória`);
-            }
-        }
-        
-        return errors;
-    }
-
-    /**
-     * Retorna estatísticas dos dados
-     */
-    getStatistics() {
-        if (this.data.length === 0) {
-            return {
-                total: 0,
-                dates: [],
-                timeRange: null
-            };
-        }
-
-        const dates = [...new Set(this.data.map(item => item.data))].sort();
-        const times = this.data.map(item => item.hora).sort();
-        
-        return {
-            total: this.data.length,
-            dates: dates,
-            timeRange: {
-                start: times[0],
-                end: times[times.length - 1]
-            },
-            uniqueDates: dates.length
-        };
-    }
 }
 
 // Exporta a classe para uso global

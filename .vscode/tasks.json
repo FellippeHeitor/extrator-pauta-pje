@@ -1,0 +1,12 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Abrir Extrator PJe",
+			"type": "shell",
+			"command": "python3 -m http.server 8080",
+			"isBackground": true,
+			"group": "serve"
+		}
+	]
+}

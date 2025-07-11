@@ -5,18 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Extrator de Processos - Pauta de Audiências PJe TJMG</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IS0tIFVwbG9hZGVkIHRvOiBTVkcgUmVwbywgd3d3LnN2Z3JlcG8uY29tLCBHZW5lcmF0b3I6IFNWRyBSZXBvIE1peGVyIFRvb2xzIC0tPgo8c3ZnIHdpZHRoPSI4MDBweCIgaGVpZ2h0PSI4MDBweCIgdmlld0JveD0iMCAwIDQ4IDQ4IiB2ZXJzaW9uPSIxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDQ4IDQ4Ij4KICAgIDxwb2x5Z29uIGZpbGw9IiM0M0EwNDciIHBvaW50cz0iNDAuNiwxMi4xIDE3LDM1LjcgNy40LDI2LjEgNC42LDI5IDE3LDQxLjMgNDMuNCwxNC45Ii8+Cjwvc3ZnPg==">
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDc2IiBoZWlnaHQ9IjQ3NiIgdmlld0JveD0iMCAwIDQ3Ni4yNDMgNDc2LjI0MyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNjM2NmYxO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM0MzM4Y2E7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8Y2lyY2xlIGN4PSIyMzguMTIiIGN5PSIyMzguMTIiIHI9IjIzOC4xMiIgZmlsbD0idXJsKCNncmFkaWVudCkiLz4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3NSwgNzUpIHNjYWxlKDAuNzUpIiBmaWxsPSJ3aGl0ZSI+CiAgICA8cGF0aCBkPSJNNjkuNjg0LDM4NC40MzZsMTE2LjMxMi0xMTYuMzEyYzExLjA5Ni0xMS4wOTYsMTQuMjgyLTI2LjkzOCw5LjkzMy00MC45NTJsMzYuMDEtMzYuMDFjMTAuNzYyLDguNzYzLDIxLjkyMywxNS43NjksMzIuODk2LDIwLjg4MmMwLjgzNy0yLjQ5NSwyLjEzLTQuNzg4LDQuMDE2LTYuNjc0bDYwLjMwNi02MC4zMDZjMS44Ny0xLjg3LDQuMTc4LTMuMTM4LDYuNzA2LTMuOTQyYy03LjM4MS0xNS44NjctMTguNjk2LTMyLjE3My0zMy41NTUtNDcuMDMyYy0xNS4xNTItMTUuMTUyLTMxLjgwNy0yNi42NTQtNDcuOTc1LTM0LjAxOGMtMC44NDUsMi4zNDEtMi4wNjUsNC41MTEtMy44NTMsNi4zMDhsLTYwLjMwNiw2MC4zMDZjLTEuNzgsMS43OC0zLjkwMiwzLjA4MS02LjI2NywzLjk1YzUuMTQ1LDExLjI2NiwxMi4zMzEsMjIuNzUyLDIxLjMzOCwzMy44MjNsLTM2LjAxLDM2LjAxYy0xNC4wMTQtNC4zNDktMjkuODU2LTEuMTYyLTQwLjk1Miw5LjkzM0wxMS45NTUsMzI2LjcxNWMtMTUuOTQsMTUuOTQtMTUuOTQsNDEuNzgxLDAsNTcuNzIxQzI3Ljg5NSw0MDAuMzc2LDUzLjc0NCw0MDAuMzc2LDY5LjY4NCwzODQuNDM2eiIvPgogICAgPHBhdGggZD0iTTI3NC41ODksMjExLjEyN2MtMS4xMjIsMS4xMjItMS44MzcsMi41NDQtMi4yNzYsNC4xMjFjLTEuNDk2LDUuNDE0LDAuOTEsMTIuOSw2LjU3NiwxOC41NjZjNC40MzgsNC40MywxMC4xMjgsNy4wOCwxNS4yMzMsNy4wOGMyLjEzOCwwLDUuMTYyLTAuNDgsNy40NTQtMi43NzJsMTguNjQ3LTE4LjY0N2wyMy4wMTItMjMuMDEybDE4LjY0Ny0xOC42NDdjMi4yODQtMi4yODQsMy4yMTEtNS43NzksMi41OTMtOS44MzZjLTAuNjgzLTQuNTE5LTMuMTM4LTkuMDgtNi45MDEtMTIuODQzYy00LjQzOC00LjQzLTEwLjEyOC03LjA4LTE1LjIyNS03LjA4Yy0wLjk4NCwwLTIuMTYyLDAuMTMtMy4zNjUsMC40NjNjLTEuNDE0LDAuMzktMi44NjEsMS4wNzMtNC4wOTcsMi4zMTdMMjc0LjU4OSwyMTEuMTI3eiIvPgogICAgPHBhdGggZD0iTTE3Ni45NDksMTIzLjcyOGMxLjEwNSwwLDIuNDU1LTAuMTQ2LDMuODItMC41OTNjMS4yNi0wLjQxNSwyLjUzNi0xLjA4MSwzLjY0Mi0yLjE4N2w2MC4zMDYtNjAuMzA2YzEuMDA4LTEuMDA4LDEuNjU4LTIuMjg0LDIuMTEzLTMuNjY2YzEuNzcyLTUuNDM4LTAuNTg1LTEzLjE4NS02LjQyMi0xOS4wMTNjLTQuNDM4LTQuNDMtMTAuMTI4LTcuMDgtMTUuMjI1LTcuMDhjLTIuMTM4LDAtNS4xNjIsMC40OC03LjQ1NCwyLjc3MmwtMjAuNTQ5LDIwLjU0OWwtMTkuMjE2LDE5LjIwOGwtMjAuNTQ5LDIwLjU0OWMtNC45NzUsNC45ODMtMy4wMDgsMTUuMzcxLDQuMzA4LDIyLjY4N0MxNjYuMTYyLDEyMS4wNzgsMTcxLjg1MiwxMjMuNzI4LDE3Ni45NDksMTIzLjcyOHoiLz4KICAgIDxwYXRoIGQ9Ik0zMDAuNDM4LDM4Ny4zMTNjOS44OTItMC45NzUsMjAuNS0xLjI1MiwzMS41NzktMS4yNTJjNC43MjMsMCw5LjU1OSwwLjAzMywxNC40ODUsMC4wNzNjMTAuMjA5LDAuMDgxLDIxLjAwNCwwLjA4MSwzMS4yMTQsMGM0LjkyNi0wLjA0MSw5Ljc2Mi0wLjA3MywxNC40ODUtMC4wNzNjMTEuMDc5LDAsMjEuNj87LDAuMjc2LDMxLjU3OSwxLjI1MnYtMjMuNTg5SDMwMC40MzhWMzg3LjMxM3oiLz4KICAgIDxwYXRoIGQ9Ik0zOTIuMjAyLDM5NC4xOWMtNC42OTgsMC05LjUxLDAuMDMzLTE0LjQyLDAuMDczYy0xMC4yNTgsMC4wNzMtMjEuMDg2LDAuMDczLTMxLjMzNiwwYy00LjkxLTAuMDQxLTkuNzIyLTAuMDczLTE0LjQyLTAuMDczYy0xMS41MDIsMC0yMi4wNTMsMC4yMjgtMzEuNTc5LDEuMTNjLTMxLjQxNywyLjk2Ny01MS4xMjksMTMuNTY3LTUyLjQ3LDUwLjA0aDIyOC4yNjdjLTEuMzQxLTM2LjQ3My0yMS4wNTMtNDcuMDY0LTUyLjQ3LTUwLjAzOUM0MTQuMjU1LDM5NC40MTgsNDAzLjY5NSwzOTQuMTksMzkyLjIwMiwzOTQuMTl6Ii8+CiAgPC9nPgo8L3N2Zz4=">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDc2IiBoZWlnaHQ9IjQ3NiIgdmlld0JveD0iMCAwIDQ3Ni4yNDMgNDc2LjI0MyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNjM2NmYxO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM0MzM4Y2E7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8Y2lyY2xlIGN4PSIyMzguMTIiIGN5PSIyMzguMTIiIHI9IjIzOC4xMiIgZmlsbD0idXJsKCNncmFkaWVudCkiLz4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3NSwgNzUpIHNjYWxlKDAuNzUpIiBmaWxsPSJ3aGl0ZSI+CiAgICA8cGF0aCBkPSJNNjkuNjg0LDM4NC40MzZsMTE2LjMxMi0xMTYuMzEyYzExLjA5Ni0xMS4wOTYsMTQuMjgyLTI2LjkzOCw5LjkzMy00MC45NTJsMzYuMDEtMzYuMDFjMTAuNzYyLDguNzYzLDIxLjkyMywxNS43NjksMzIuODk2LDIwLjg4MmMwLjgzNy0yLjQ5NSwyLjEzLTQuNzg4LDQuMDE2LTYuNjc0bDYwLjMwNi02MC4zMDZjMS44Ny0xLjg3LDQuMTc4LTMuMTM4LDYuNzA2LTMuOTQyYy03LjM4MS0xNS44NjctMTguNjk2LTMyLjE3My0zMy41NTUtNDcuMDMyYy0xNS4xNTItMTUuMTUyLTMxLjgwNy0yNi42NTQtNDcuOTc1LTM0LjAxOGMtMC44NDUsMi4zNDEtMi4wNjUsNC41MTEtMy44NTMsNi4zMDhsLTYwLjMwNiw2MC4zMDZjLTEuNzgsMS43OC0zLjkwMiwzLjA4MS02LjI2NywzLjk1YzUuMTQ1LDExLjI2NiwxMi4zMzEsMjIuNzUyLDIxLjMzOCwzMy44MjNsLTM2LjAxLDM2LjAxYy0xNC4wMTQtNC4zNDktMjkuODU2LTEuMTYyLTQwLjk1Miw5LjkzM0wxMS45NTUsMzI2LjcxNWMtMTUuOTQsMTUuOTQtMTUuOTQsNDEuNzgxLDAsNTcuNzIxQzI3Ljg5NSw0MDAuMzc2LDUzLjc0NCw0MDAuMzc2LDY5LjY4NCwzODQuNDM2eiIvPgogICAgPHBhdGggZD0iTTI3NC41ODksMjExLjEyN2MtMS4xMjIsMS4xMjItMS44MzcsMi41NDQtMi4yNzYsNC4xMjFjLTEuNDk2LDUuNDE0LDAuOTEsMTIuOSw2LjU3NiwxOC41NjZjNC40MzgsNC40MywxMC4xMjgsNy4wOCwxNS4yMzMsNy4wOGMyLjEzOCwwLDUuMTYyLTAuNDgsNy40NTQtMi43NzJsMTguNjQ3LTE4LjY0N2wyMy4wMTItMjMuMDEybDE4LjY0Ny0xOC42NDdjMi4yODQtMi4yODQsMy4yMTEtNS43NzksMi41OTMtOS44MzZjLTAuNjgzLTQuNTE5LTMuMTM4LTkuMDgtNi45MDEtMTIuODQzYy00LjQzOC00LjQzLTEwLjEyOC03LjA4LTE1LjIyNS03LjA4Yy0wLjk4NCwwLTIuMTYyLDAuMTMtMy4zNjUsMC40NjNjLTEuNDE0LDAuMzktMi44NjEsMS4wNzMtNC4wOTcsMi4zMTdMMjc0LjU4OSwyMTEuMTI3eiIvPgogICAgPHBhdGggZD0iTTE3Ni45NDksMTIzLjcyOGMxLjEwNSwwLDIuNDU1LTAuMTQ2LDMuODItMC41OTNjMS4yNi0wLjQxNSwyLjUzNi0xLjA4MSwzLjY0Mi0yLjE4N2w2MC4zMDYtNjAuMzA2YzEuMDA4LTEuMDA4LDEuNjU4LTIuMjg0LDIuMTEzLTMuNjY2YzEuNzcyLTUuNDM4LTAuNTg1LTEzLjE4NS02LjQyMi0xOS4wMTNjLTQuNDM4LTQuNDMtMTAuMTI4LTcuMDgtMTUuMjI1LTcuMDhjLTIuMTM4LDAtNS4xNjIsMC40OC03LjQ1NCwyLjc3MmwtMjAuNTQ5LDIwLjU0OWwtMTkuMjE2LDE5LjIwOGwtMjAuNTQ5LDIwLjU0OWMtNC45NzUsNC45ODMtMy4wMDgsMTUuMzcxLDQuMzA4LDIyLjY4N0MxNjYuMTYyLDEyMS4wNzgsMTcxLjg1MiwxMjMuNzI4LDE3Ni45NDksMTIzLjcyOHoiLz4KICAgIDxwYXRoIGQ9Ik0zMDAuNDM4LDM4Ny4zMTNjOS44OTItMC45NzUsMjAuNS0xLjI1MiwzMS41NzktMS4yNTJjNC43MjMsMCw5LjU1OSwwLjAzMywxNC40ODUsMC4wNzNjMTAuMjA5LDAuMDgxLDIxLjAwNCwwLjA4MSwzMS4yMTQsMGM0LjkyNi0wLjA0MSw5Ljc2Mi0wLjA3MywxNC40ODUtMC4wNzNjMTEuMDc5LDAsMjEuNjg3LDAuMjc2LDMxLjU3OSwxLjI1MnYtMjMuNTg5SDMwMC40MzhWMzg3LjMxM3oiLz4KICAgIDxwYXRoIGQ9Ik0zOTIuMjAyLDM5NC4xOWMtNC42OTgsMC05LjUxLDAuMDMzLTE0LjQyLDAuMDczYy0xMC4yNTgsMC4wNzMtMjEuMDg2LDAuMDczLTMxLjMzNiwwYy00LjkxLTAuMDQxLTkuNzIyLTAuMDczLTE0LjQyLTAuMDczYy0xMS41MDIsMC0yMi4wNTMsMC4yMjgtMzEuNTc5LDEuMTNjLTMxLjQxNywyLjk2Ny01MS4xMjksMTMuNTY3LTUyLjQ3LDUwLjA0aDIyOC4yNjdjLTEuMzQxLTM2LjQ3My0yMS4wNTMtNDcuMDY0LTUyLjQ3LTUwLjAzOUM0MTQuMjU1LDM5NC40MTgsNDAzLjY5NSwzOTQuMTksMzkyLjIwMiwzOTQuMTl6Ii8+CiAgPC9nPgo8L3N2Zz4=">
 </head>
 <body>
     <div class="container">
         <header>
             <h1>
-                <svg class="icon" viewBox="0 0 48 48" width="32" height="32">
-                    <polygon fill="#43A047" points="40.6,12.1 17,35.7 7.4,26.1 4.6,29 17,41.3 43.4,14.9"/>
+                <svg class="icon" viewBox="0 0 476.243 476.243" width="32" height="32">
+                    <g>
+                        <path d="M69.684,384.436l116.312-116.312c11.096-11.096,14.282-26.938,9.933-40.952l36.01-36.01
+                            c10.762,8.763,21.923,15.769,32.896,20.882c0.837-2.495,2.13-4.788,4.016-6.674l60.306-60.306c1.87-1.87,4.178-3.138,6.706-3.942
+                            c-7.381-15.867-18.696-32.173-33.555-47.032c-15.152-15.152-31.807-26.654-47.975-34.018c-0.845,2.341-2.065,4.511-3.853,6.308
+                            l-60.306,60.306c-1.78,1.78-3.902,3.081-6.267,3.95c5.145,11.266,12.331,22.752,21.338,33.823l-36.01,36.01
+                            c-14.014-4.349-29.856-1.162-40.952,9.933L11.955,326.715c-15.94,15.94-15.94,41.781,0,57.721
+                            C27.895,400.376,53.744,400.376,69.684,384.436z"/>
+                        <path d="M274.589,211.127c-1.122,1.122-1.837,2.544-2.276,4.121c-1.496,5.414,0.91,12.9,6.576,18.566
+                            c4.438,4.43,10.128,7.08,15.233,7.08c2.138,0,5.162-0.48,7.454-2.772l18.647-18.647l23.012-23.012l18.647-18.647
+                            c2.284-2.284,3.211-5.779,2.593-9.836c-0.683-4.519-3.138-9.08-6.901-12.843c-4.438-4.43-10.128-7.08-15.225-7.08
+                            c-0.984,0-2.162,0.13-3.365,0.463c-1.414,0.39-2.861,1.073-4.097,2.317L274.589,211.127z"/>
+                        <path d="M176.949,123.728c1.105,0,2.455-0.146,3.82-0.593c1.26-0.415,2.536-1.081,3.642-2.187l60.306-60.306
+                            c1.008-1.008,1.658-2.284,2.113-3.666c1.772-5.438-0.585-13.185-6.422-19.013c-4.438-4.43-10.128-7.08-15.225-7.08
+                            c-2.138,0-5.162,0.48-7.454,2.772l-20.549,20.549l-19.216,19.208l-20.549,20.549c-4.975,4.983-3.008,15.371,4.308,22.687
+                            C166.162,121.078,171.852,123.728,176.949,123.728z"/>
+                        <path d="M300.438,387.313c9.892-0.975,20.5-1.252,31.579-1.252c4.723,0,9.559,0.033,14.485,0.073
+                            c10.209,0.081,21.004,0.081,31.214,0c4.926-0.041,9.762-0.073,14.485-0.073c11.079,0,21.687,0.276,31.579,1.252v-23.589H300.438
+                            V387.313z"/>
+                        <path d="M392.202,394.19c-4.698,0-9.51,0.033-14.42,0.073c-10.258,0.073-21.086,0.073-31.336,0
+                            c-4.91-0.041-9.722-0.073-14.42-0.073c-11.502,0-22.053,0.228-31.579,1.13c-31.417,2.967-51.129,13.567-52.47,50.04h228.267
+                            c-1.341-36.473-21.053-47.064-52.47-50.039C414.255,394.418,403.695,394.19,392.202,394.19z"/>
+                    </g>
                 </svg>
                 Extrator de Processos - Pauta PJe TJMG
             </h1>
-            <p>Extraia dados de processos criminais das pautas de audiências do PJe</p>
+            <p>Extraia dados de processos das pautas de audiências do PJe</p>
         </header>
 
         <main>
@@ -36,24 +58,49 @@
                 </div>
 
                 <div class="digits-section" id="digits-section" style="display: none;">
-                    <h3>Filtrar por Dígito</h3>
-                    <p>Selecione os dígitos: <small style="color: #666;">(salvos automaticamente)</small></p>
-                    <div class="digits-grid-compact">
-                        <button type="button" class="digit-btn" data-digit="0">0</button>
-                        <button type="button" class="digit-btn" data-digit="1">1</button>
-                        <button type="button" class="digit-btn selected" data-digit="2">2</button>
-                        <button type="button" class="digit-btn selected" data-digit="3">3</button>
-                        <button type="button" class="digit-btn" data-digit="4">4</button>
-                        <button type="button" class="digit-btn" data-digit="5">5</button>
-                        <button type="button" class="digit-btn" data-digit="6">6</button>
-                        <button type="button" class="digit-btn" data-digit="7">7</button>
-                        <button type="button" class="digit-btn" data-digit="8">8</button>
-                        <button type="button" class="digit-btn" data-digit="9">9</button>
+                    <div class="digits-filter-group">
+                        <h3>Filtrar por Dígito</h3>
+                        <p>Selecione os dígitos:</p>
+                        <div class="digits-grid-compact">
+                            <button type="button" class="digit-btn" data-digit="0">0</button>
+                            <button type="button" class="digit-btn" data-digit="1">1</button>
+                            <button type="button" class="digit-btn selected" data-digit="2">2</button>
+                            <button type="button" class="digit-btn selected" data-digit="3">3</button>
+                            <button type="button" class="digit-btn" data-digit="4">4</button>
+                            <button type="button" class="digit-btn" data-digit="5">5</button>
+                            <button type="button" class="digit-btn" data-digit="6">6</button>
+                            <button type="button" class="digit-btn" data-digit="7">7</button>
+                            <button type="button" class="digit-btn" data-digit="8">8</button>
+                            <button type="button" class="digit-btn" data-digit="9">9</button>
+                        </div>
+                        <div class="digits-controls-compact">
+                            <button type="button" id="select-all-digits">Todos</button>
+                            <button type="button" id="select-none-digits">Limpar</button>
+                        </div>
                     </div>
-                    <div class="digits-controls-compact">
-                        <button type="button" id="select-all-digits">Todos</button>
-                        <button type="button" id="select-none-digits">Limpar</button>
+
+                    <div class="process-type-group">
+                        <h3>Tipo de Processo</h3>
+                        <p>Selecione o tipo:</p>
+                        <div class="process-type-section">
+                            <label class="process-type-option">
+                                <input type="radio" name="process-type" value="criminal" checked>
+                                <span class="radio-custom"></span>
+                                <span>Criminal</span>
+                            </label>
+                            <label class="process-type-option">
+                                <input type="radio" name="process-type" value="civil">
+                                <span class="radio-custom"></span>
+                                <span>Cível</span>
+                            </label>
+                            <label class="process-type-option">
+                                <input type="radio" name="process-type" value="both">
+                                <span class="radio-custom"></span>
+                                <span>Ambos</span>
+                            </label>
+                        </div>
                     </div>
+
                     <button type="button" id="process-btn" class="primary-btn">Processar Arquivo</button>
                 </div>
             </section>
@@ -67,55 +114,68 @@
                 </div>
             </section>
 
-            <section class="results-section" id="results-section" style="display: none;">
-                <h2>Resultados da Extração</h2>
-                <div class="results-summary">
-                    <div class="summary-item">
-                        <span class="summary-label">Período:</span>
-                        <span id="periodo-found">-</span>
+            <!-- Modal de Resultados -->
+            <div class="modal-overlay" id="results-modal" style="display: none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Resultados da Extração</h2>
+                        <button type="button" class="modal-close" id="close-results-modal">
+                            <svg viewBox="0 0 24 24" width="24" height="24">
+                                <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
+                            </svg>
+                        </button>
                     </div>
-                    <div class="summary-item">
-                        <span class="summary-label">Processos encontrados:</span>
-                        <span id="total-found">0</span>
-                    </div>
-                    <div class="summary-item">
-                        <span class="summary-label">Dígitos selecionados:</span>
-                        <span id="digits-selected">-</span>
-                    </div>
-                </div>
+                    <div class="modal-body">
+                        <div class="results-summary">
+                            <div class="summary-item">
+                                <span class="summary-label">Período:</span>
+                                <span id="periodo-found">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Processos encontrados:</span>
+                                <span id="total-found">0</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Dígitos selecionados:</span>
+                                <span id="digits-selected">-</span>
+                            </div>
+                        </div>
 
-                <div class="results-preview" id="results-preview">
-                    <h3>Dados extraídos:</h3>
-                    <div class="preview-table-container">
-                        <table id="preview-table">
-                            <thead>
-                                <tr>
-                                    <th>Processo</th>
-                                    <th>Data</th>
-                                    <th>Hora</th>
-                                </tr>
-                            </thead>
-                            <tbody id="preview-tbody">
-                            </tbody>
-                        </table>
+                        <div class="results-preview" id="results-preview">
+                            <h3>Prévia dos dados extraídos:</h3>
+                            <div class="preview-table-container">
+                                <table id="preview-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Processo</th>
+                                            <th>Tipo</th>
+                                            <th>Data</th>
+                                            <th>Hora</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="preview-tbody">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="results-actions">
+                            <button type="button" id="copy-clipboard-btn" class="action-btn">
+                                <svg viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/>
+                                </svg>
+                                Copiar para Área de Transferência
+                            </button>
+                            <button type="button" id="download-csv-btn" class="action-btn primary">
+                                <svg viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                </svg>
+                                Baixar CSV
+                            </button>
+                        </div>
                     </div>
                 </div>
-
-                <div class="results-actions">
-                    <button type="button" id="copy-clipboard-btn" class="action-btn">
-                        <svg viewBox="0 0 24 24" width="20" height="20">
-                            <path d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/>
-                        </svg>
-                        Copiar para Área de Transferência
-                    </button>
-                    <button type="button" id="download-csv-btn" class="action-btn primary">
-                        <svg viewBox="0 0 24 24" width="20" height="20">
-                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
-                        </svg>
-                        Baixar CSV
-                    </button>
-                </div>
-            </section>
+            </div>
 
             <section class="error-section" id="error-section" style="display: none;">
                 <div class="error-message">

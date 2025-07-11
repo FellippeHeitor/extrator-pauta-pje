@@ -13,7 +13,7 @@ class PDFExtractor {
   /**
    * Processa um arquivo PDF e extrai os dados dos processos
    */
-  async extractFromPDF(file, selectedDigits, onProgress = null) {
+  async extractFromPDF(file, selectedDigits, processType = 'criminal', onProgress = null) {
     this.onProgress = onProgress;
     this.extractedData = [];
     this.periodo = "";
@@ -44,7 +44,7 @@ class PDFExtractor {
       }
 
       // Processa o texto extraído
-      await this.processExtractedText(allTextItems, selectedDigits);
+      await this.processExtractedText(allTextItems, selectedDigits, processType);
 
       return {
         success: true,
@@ -64,11 +64,11 @@ class PDFExtractor {
   /**
    * Processa o texto extraído do PDF
    */
-  async processExtractedText(textItems, selectedDigits) {
+  async processExtractedText(textItems, selectedDigits, processType) {
     let currentDate = "";
     let currentTime = "";
     let currentProcess = "";
-    let processoCriminal = false;
+    let currentProcessType = "";
 
     // Regex patterns
     const datePattern = /(\d{2}\/\d{2}\/\d{4})/;
@@ -112,7 +112,7 @@ class PDFExtractor {
           this.periodo += currentDate;
         }
         continue;
-    }
+      }
 
       // Extrai horário
       const timeMatches = item.match(timePattern);
@@ -122,19 +122,18 @@ class PDFExtractor {
           const [hours, minutes] = timeMatch.split(":").map(Number);
           if (hours >= 8 && hours <= 23) {
             currentTime = timeMatch;
-            processoCriminal = false;
+            currentProcessType = "";
             currentProcess = "";
             break;
           }
         }
       }
 
-      // Verifica se é processo criminal
+      // Verifica se é processo criminal ou cível
       if (item.includes("CRIMINAL]")) {
-        processoCriminal = true;
+        currentProcessType = "Criminal";
       } else if (item.includes("CÍVEL]")) {
-        processoCriminal = false;
-        currentProcess = "";
+        currentProcessType = "Cível";
       }
 
       // Extrai número do processo
@@ -154,22 +153,27 @@ class PDFExtractor {
         }
       }
 
-      // Se é criminal e temos todos os dados, adiciona à lista
+      // Verifica se deve incluir o processo baseado no filtro de tipo
+      const shouldInclude = this.shouldIncludeProcess(currentProcessType, processType);
+
+      // Se temos todos os dados e deve incluir, adiciona à lista
       if (
-        processoCriminal === true &&
+        shouldInclude &&
         currentDate !== "" &&
         currentTime !== "" &&
-        currentProcess !== ""
+        currentProcess !== "" &&
+        currentProcessType !== ""
       ) {
         this.extractedData.push({
           processo: currentProcess,
+          tipo: currentProcessType,
           data: currentDate,
           hora: currentTime,
         });
 
         // Reset para próximo processo
         currentProcess = "";
-        processoCriminal = false;
+        currentProcessType = "";
       }
     }
 
@@ -184,73 +188,20 @@ class PDFExtractor {
   }
 
   /**
-   * Valida se um número de processo está no formato correto do CNJ
+   * Verifica se o processo deve ser incluído baseado no filtro de tipo
    */
-  isValidProcessNumber(processNumber) {
-    // Formato: NNNNNNN-DD.AAAA.J.TR.OOOO
-    const pattern = /^\d{7}-\d{2}\.\d{4}\.\d\.\d{2}\.\d{4}$/;
-    return pattern.test(processNumber);
+  shouldIncludeProcess(currentProcessType, filterType) {
+    if (filterType === 'both') {
+      return currentProcessType === 'Criminal' || currentProcessType === 'Cível';
+    } else if (filterType === 'criminal') {
+      return currentProcessType === 'Criminal';
+    } else if (filterType === 'civil') {
+      return currentProcessType === 'Cível';
+    }
+    return false;
   }
 
-  /**
-   * Extrai o dígito verificador de um processo
-   */
-  getProcessSeventhDigit(processNumber) {
-    if (processNumber.length >= 7) {
-      return parseInt(processNumber.charAt(6));
-    }
-    return -1;
-  }
 
-  /**
-   * Formata a data no padrão brasileiro
-   */
-  formatDate(dateStr) {
-    // Se já estiver no formato DD/MM/YYYY, retorna como está
-    if (/^\d{2}\/\d{2}\/\d{4}$/.test(dateStr)) {
-      return dateStr;
-    }
-
-    // Tenta outros formatos comuns
-    const date = new Date(dateStr);
-    if (!isNaN(date.getTime())) {
-      return date.toLocaleDateString("pt-BR");
-    }
-
-    return dateStr;
-  }
-
-  /**
-   * Formata horário no padrão HH:MM
-   */
-  formatTime(timeStr) {
-    if (/^\d{2}:\d{2}$/.test(timeStr)) {
-      return timeStr;
-    }
-
-    // Remove segundos se existirem
-    if (/^\d{2}:\d{2}:\d{2}$/.test(timeStr)) {
-      return timeStr.substring(0, 5);
-    }
-
-    return timeStr;
-  }
-
-  /**
-   * Retorna estatísticas dos dados extraídos
-   */
-  getStatistics() {
-    return {
-      total: this.extractedData.length,
-      periodo: this.periodo,
-      firstDate:
-        this.extractedData.length > 0 ? this.extractedData[0].data : null,
-      lastDate:
-        this.extractedData.length > 0
-          ? this.extractedData[this.extractedData.length - 1].data
-          : null,
-    };
-  }
 }
 
 // Exporta a classe para uso global
