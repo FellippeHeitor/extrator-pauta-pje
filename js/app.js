@@ -57,6 +57,9 @@ class PautaExtractorApp {
       .getElementById("copy-clipboard-btn")
       .addEventListener("click", () => this.copyToClipboard());
     document
+      .getElementById("create-sheets-btn")
+      .addEventListener("click", () => this.createGoogleSheets());
+    document
       .getElementById("download-csv-btn")
       .addEventListener("click", () => this.downloadCSV());
 
@@ -415,6 +418,132 @@ class PautaExtractorApp {
   }
 
   /**
+   * Cria uma nova planilha no Google Sheets com os dados
+   */
+  async createGoogleSheets() {
+    try {
+      if (!this.extractedData || this.extractedData.length === 0) {
+        this.showError("Nenhum dado disponível para criar a planilha.");
+        return;
+      }
+
+      // Preparar dados formatados para Google Sheets
+      const formattedData = this.prepareGoogleSheetsData();
+      
+      // Copiar dados formatados para área de transferência
+      await this.copyFormattedDataToClipboard(formattedData);
+      
+      // Criar URL do Google Sheets para nova planilha
+      const sheetsUrl = `https://docs.google.com/spreadsheets/create`;
+      
+      // Abrir Google Sheets em nova aba
+      const newWindow = window.open(sheetsUrl, '_blank');
+      
+      // Mostrar instruções ao usuário
+      this.showSheetsInstructions();
+      
+    } catch (error) {
+      console.error("Erro ao criar Google Sheets:", error);
+      this.showError("Erro ao abrir Google Sheets. Tente novamente.");
+    }
+  }
+
+  /**
+   * Mostra instruções para colar dados no Google Sheets
+   */
+  showSheetsInstructions() {
+    const message = `
+      ✅ Dados formatados copiados para área de transferência!
+      
+      📋 Como usar no Google Sheets:
+      1. Uma nova aba foi aberta com o Google Sheets
+      2. Clique na célula A1 da planilha
+      3. Cole os dados (Ctrl+V ou Cmd+V)
+      4. Os dados serão organizados automaticamente com formatação
+    `;
+    
+    this.showTemporaryMessage(message, "success", 8000);
+  }
+
+  /**
+   * Prepara dados formatados especificamente para Google Sheets
+   */
+  prepareGoogleSheetsData() {
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('pt-BR');
+    const timeStr = now.toLocaleTimeString('pt-BR');
+    
+    // Metadados do cabeçalho
+    const metadata = [
+      [`PAUTA DE AUDIÊNCIAS PJE TJMG`],
+      [`Extraído em: ${dateStr} às ${timeStr}`],
+      [`Dígitos filtrados: ${this.selectedDigits.join(', ')}`],
+      [`Tipo de processo: ${this.getProcessTypeLabel()}`],
+      [`Total de processos: ${this.extractedData.length}`],
+      [`Período: ${document.getElementById('periodo-found').textContent}`],
+      [], // Linha em branco
+      [`PROCESSO`, `TIPO`, `DATA`, `HORA`] // Cabeçalhos das colunas
+    ];
+
+    // Dados dos processos
+    const processData = this.extractedData.map(item => [
+      item.processo,
+      item.tipo,
+      item.data,
+      item.hora
+    ]);
+
+    // Combinar metadados e dados
+    return [...metadata, ...processData];
+  }
+
+  /**
+   * Copia dados formatados para área de transferência usando formato de tabela
+   */
+  async copyFormattedDataToClipboard(data) {
+    try {
+      // Converter para formato TSV (Tab Separated Values) que o Google Sheets reconhece melhor
+      const tsvContent = data.map(row => 
+        row.map(cell => String(cell || '')).join('\t')
+      ).join('\n');
+
+      // Usar clipboard API se disponível
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(tsvContent);
+        return { success: true };
+      } else {
+        // Fallback para métodos antigos
+        const textArea = document.createElement('textarea');
+        textArea.value = tsvContent;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        return { success: true };
+      }
+    } catch (error) {
+      console.error('Erro ao copiar dados formatados:', error);
+      return { success: false, error: error.message };
+    }
+  }
+
+  /**
+   * Retorna o label do tipo de processo selecionado
+   */
+  getProcessTypeLabel() {
+    switch (this.selectedProcessType) {
+      case 'criminal':
+        return 'Criminal';
+      case 'civil':
+        return 'Cível';
+      case 'both':
+        return 'Criminal e Cível';
+      default:
+        return 'Criminal';
+    }
+  }
+
+  /**
    * Faz download do arquivo CSV
    */
   downloadCSV() {
@@ -459,7 +588,7 @@ class PautaExtractorApp {
   /**
    * Mostra mensagem temporária
    */
-  showTemporaryMessage(message, type = "info") {
+  showTemporaryMessage(message, type = "info", duration = 3000) {
     // Remove mensagens anteriores
     const existingMessages = document.querySelectorAll(".temp-message");
     existingMessages.forEach((msg) => msg.remove());
@@ -467,28 +596,39 @@ class PautaExtractorApp {
     // Cria nova mensagem
     const messageDiv = document.createElement("div");
     messageDiv.className = `temp-message temp-message-${type}`;
-    messageDiv.textContent = message;
+    
+    // Se a mensagem contém quebras de linha, usar innerHTML preservando a estrutura
+    if (message.includes('\n')) {
+      messageDiv.innerHTML = message.replace(/\n/g, '<br>');
+    } else {
+      messageDiv.textContent = message;
+    }
+    
     messageDiv.style.cssText = `
             position: fixed;
             top: 20px;
             right: 20px;
             background: ${type === "success" ? "#4CAF50" : "#2196F3"};
             color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
             z-index: 1000;
             font-weight: 500;
+            font-size: 14px;
+            line-height: 1.4;
+            max-width: 400px;
             animation: slideInRight 0.3s ease;
+            white-space: pre-line;
         `;
 
     document.body.appendChild(messageDiv);
 
-    // Remove após 3 segundos
+    // Remove após o tempo especificado
     setTimeout(() => {
       messageDiv.style.animation = "slideOutRight 0.3s ease";
       setTimeout(() => messageDiv.remove(), 300);
-    }, 3000);
+    }, duration);
   }
 
   /**
