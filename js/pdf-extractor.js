@@ -130,7 +130,7 @@ class PDFExtractor {
       }
 
       // Verifica se é processo criminal ou cível
-      if (item.includes("CRIMINAL]")) {
+      if (item.includes("CRIMINAL]") || item.includes("INFRACIONAL]")) {
         currentProcessType = "Criminal";
       } else if (item.includes("CÍVEL]")) {
         currentProcessType = "Cível";
