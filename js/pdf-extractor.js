@@ -65,6 +65,7 @@ class PDFExtractor {
    * Processa o texto extraído do PDF
    */
   async processExtractedText(textItems, selectedDigits, processType) {
+    let settingDate = false;
     let currentDate = "";
     let currentTime = "";
     let currentProcess = "";
@@ -102,14 +103,23 @@ class PDFExtractor {
         this.periodo = "Período";
       }
 
+      if (item.includes('Data:')) {
+        settingDate = true;
+        continue;
+      }
+      
       // Extrai data
       const dateMatch = item.match(datePattern);
       if (dateMatch) {
-        currentDate = dateMatch[1];
+        if (settingDate) {
+          currentDate = dateMatch[1];
+          settingDate = false;
+        }
+
         if (this.periodo === "Período") {
-          this.periodo = currentDate + " a ";
+          this.periodo = dateMatch[1] + " a ";
         } else if (this.periodo.slice(-3) === " a ") {
-          this.periodo += currentDate;
+          this.periodo += dateMatch[1];
         }
         continue;
       }
